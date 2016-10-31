@@ -1,0 +1,27 @@
+<h1>Welcome</h1>
+<%= flash[:success] %>
+<% if flash[:failed]%>
+  <% flash[:failed].each do |error| %><br>
+    <%= error %>
+  <% end %>
+<% end %>
+<p>Register</p>
+<form action="/users" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  Name: <input type="text" name="user[name]"><br>
+  Alias: <input type="text" name="user[alias]"><br>
+  Email: <input type="text" name="user[email]"><br>
+  *Password should be at least 8 characters*<br>
+  Password: <input type="password" name="user[password]"><br>
+  Confirm PW: <input type="password" name="user[password_confirm]">
+  <input type="submit">
+</form>
+
+<p>Login</p>
+<%= flash[:loginfailed]%>
+<form action="/sessions" method="post">
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  Email: <input type="text" name="email"><br>
+  Password: <input type="password" name="password"><br>
+  <input type="submit">
+</form>

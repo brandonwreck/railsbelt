@@ -1,0 +1,45 @@
+<h3>Hi <%= @current_user.name %>!</h3>
+<form action="/logout" method="post">
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+<input type="submit" value="logout">
+</form><br>
+
+<form action="/ideas/<%= @current_user.id%>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="text" name="idea" style="width:300px; height:40px;">
+  <input type="submit" value="idea!">
+</form>
+<% @user_idea.each do |ui| %>
+<% @likecount = 0 %>
+<% @liked = false %>
+
+
+<p><a href="/users/<%= ui.userid %>"><%= ui.name %></a> Says: <%= ui.idea %></p>
+<% if ui.userid == @current_user.id %>
+<form action="/ideas/<%= ui.id %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="delete">
+</form>
+<% end %>
+<% @likes.each do |l|%>
+  <% if l.idea_id == ui.id %>
+    <% @likecount += 1%>
+  <% end %>
+  <% if l.user_id == @current_user.id && l.idea_id == ui.id%>
+   <% @liked = true %>
+  <% end %>
+<% end %>
+<% if @liked == false %>
+<p><form action="/like/<%= ui.id%>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="idea" value="<%= ui.id %>">
+  <input type="submit" value="like">
+</form>
+</p>
+<% else %>
+<p>You Liked This</p>
+<% end %>
+<p><a href="/bright_ideas/<%= ui.id %>"><%= @likecount %> People</a> Liked this</p>
+<br><br>
+<% end %>

@@ -1,0 +1,24 @@
+<form action="/logout" method="post">
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+<input type="submit" value="logout">
+</form>
+
+<p><a href="/bright_ideas">Bright Ideas</a></p>
+
+<% @idea.each do |i| %>
+<p><%= i.name %> says: <%= i.idea %></p>
+<% end %>
+
+<p>People who liked this post:</p>
+<table>
+  <tr>
+    <th>Alias</th>
+    <th>Name</th> 
+  </tr>
+<% @likers.each do |liker| %>
+  <tr>
+    <td><%= liker.alias %></td>
+    <td><%= liker.name %></td> 
+  </tr>
+<% end %>
+</table>

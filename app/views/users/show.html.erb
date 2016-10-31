@@ -1,0 +1,20 @@
+<form action="/logout" method="post">
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+<input type="submit" value="logout">
+</form>
+<p><a href="/bright_ideas">Bright Ideas</a></p>
+<p>Name: <%= @user.name %></p>
+<p>Alias: <%= @user.alias %></p>
+<p>Email: <%= @user.email %></p>
+<% ideacount = 0 %>
+<% likecount = 0 %>
+<% @idea.each do |idea| %>
+  <% ideacount += 1 %>
+<% end %>
+<% @like.each do |like| %>
+  <% likecount += 1 %>
+<% end %>
+
+<p>Total number of posts: <%= ideacount%></p>
+<p>Total number of likes: <%= likecount%></p>
+
