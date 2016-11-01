@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'users#index'
   get '/main' => 'users#index'
   post '/users' => 'users#create'
   post '/sessions' => 'sessions#create'
